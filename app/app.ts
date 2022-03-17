@@ -1,19 +1,28 @@
-/*odulo Principal que vai rodar todas as regras de negociação do sistema
-import { Negociacao } from "./models/negociacao.js";       //Importando a instancia da classe
+//Modulo Principal que vai rodar todas as chamadas do sistema
 
-const objLocalNegociacao = new Negociacao(new Date(),10, 100);
-console.log(objLocalNegociacao.data);
-console.log(objLocalNegociacao.quantidade);
-console.log(objLocalNegociacao.valor);
-console.log('volume:' + objLocalNegociacao.volume);*/
-
+//Importando a instancia da classe
 import { NegociacaoController } from "./controllers/negociacaoController.js";
+import { NegociacoesView } from "./views/Negociacoes_View.js";
 
-const objController = new NegociacaoController();
+const objNEgociacaoController = new NegociacaoController();
 const objForm = document.querySelector('.form');
-objForm.addEventListener('submit',
-    event => { 
+
+//ATRIBUIÇÕES DE EVENTOS/METODOS A OBJETOS DA TELA
+if(objForm){
+    objForm.addEventListener('submit',
+        event => { 
+            event.preventDefault();
+            objNEgociacaoController.adiciona(); 
+        }
+    );
+
+    objForm.addEventListener('#btnLimpar',
+    event => {
         event.preventDefault();
-        objController.adiciona(); 
+        objNEgociacaoController.limparFormulario();
     }
  );
+}
+else{
+    throw Error('Não foi possivel inicializar a aplicação. Verifique se o Form carregou');
+}
